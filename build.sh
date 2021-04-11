@@ -12,7 +12,7 @@ repo init --depth=1 -u git://github.com/PitchBlackRecoveryProject/manifest_pb.gi
 
 repo sync -j$(nproc --all)
 
-git clone https://github.com/hraj9258/android_device_xiaomi_phoenix-pbrp.git device/xiaomi/phoenix
+git clone https://github.com/hraj9258/android_device_xiaomi_phoenix-pbrp.git -b sid device/xiaomi/phoenix
 
 rm -rf out
 
