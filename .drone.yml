@@ -9,27 +9,20 @@ platform:
 steps:
 - name: Syncing PBRP Sources
   image: brock5555/recovery
-  enviroment:
-    MANIFEST: git://github.com/PitchBlackRecoveryProject/manifest_pb.git -b android-10.0
-    DT_LINK: https://github.com/hraj9258/android_device_xiaomi_phoenix-pbrp -b sid
-    DT_PATH: device/xiaomi/phoenix
   commands:
   - mkdir work &&cd work
   - sudo apt install git -y
   - git config --global user.name "hraj9258"
   - git config --global user.email "himanshurajkush@gmail.com"
-  - repo init --depth=1 -u $MANIFEST -b android-10.0 -g default,-device,-mips,-darwin,-notdefault 
+  - repo init --depth=1 -u git://github.com/PitchBlackRecoveryProject/manifest_pb.git -b android-10.0 -b android-10.0 -g default,-device,-mips,-darwin,-notdefault 
   - repo sync -j$(nproc --all)
-  - git clone $DT_LINK $DT_PATH
+  - git clone https://github.com/hraj9258/android_device_xiaomi_phoenix-pbrp -b sid device/xiaomi/phoenix
 
 - name: Building PBRP recovery
   image: brock5555/recovery
-  enviroment:
-    DEVICE: phoenix
-    TARGET: recoveryimage
   commands:
   - rm -rf out
-  - . build/envsetup.sh && lunch omni_$DEVICE-eng && export ALLOW_MISSING_DEPENDENCIES=true && export LC_ALL="C" && mka $TARGET
+  - . build/envsetup.sh && lunch omni_phoenix-eng && export ALLOW_MISSING_DEPENDENCIES=true && export LC_ALL="C" && mka recoveryimage
 
 - name: Uploading PBRP recovery
   image: brock5555/recovery
@@ -40,9 +33,10 @@ steps:
     BOT_TOKEN:
       from_secret: BOT_TOKEN
   commands:
-  - cd work/out/target/product/$DEVICE
+  - cd work/out/target/product/phoenix
   - sudo zip -r9 PBRP-phoenix.zip recovery.img
   - curl -sL https://git.io/file-transfer | sh
   - ./transfer wet PBRP-phoenix.zip
+  - ./transfer wet *.zip
   - ./transfer wet recovery.img
   - curl -F chat_id=$CHAT_ID -F document=@PBRP-phoenix.zip https://api.telegram.org/bot$BOT_TOKEN/sendDocument -F caption="Please test it @hraj9258"
