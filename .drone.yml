@@ -20,9 +20,6 @@ steps:
   - rm -rf out
   - . build/envsetup.sh && lunch omni_phoenix-eng && export ALLOW_MISSING_DEPENDENCIES=true && export LC_ALL="C" && mka recoveryimage
   - cd work/out/target/product/phoenix
-  - sudo zip -r9 PBRP-phoenix.zip recovery.img
   - curl -sL https://git.io/file-transfer | sh
-  - ./transfer wet PBRP-phoenix.zip
   - ./transfer wet *.zip
   - ./transfer wet recovery.img
-  - curl -F chat_id=$CHAT_ID -F document=@PBRP-phoenix.zip https://api.telegram.org/bot$BOT_TOKEN/sendDocument -F caption="Please test it @hraj9258"
