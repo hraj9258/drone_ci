@@ -7,7 +7,7 @@ platform:
   os: linux
 
 steps:
-- name: Syncing PBRP Sources
+- name: Syncing PBRP Sources And Compiling
   image: brock5555/recovery
   commands:
   - mkdir work &&cd work
