@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: docker
 name: linux-amd64
@@ -7,19 +8,7 @@ platform:
   os: linux
 
 steps:
-- name: Syncing PBRP Sources And Compiling
+- name: Start syncing && Compiling
   image: brock5555/recovery
   commands:
-  - mkdir work &&cd work
-  - sudo apt install git -y
-  - git config --global user.name "hraj9258"
-  - git config --global user.email "himanshurajkush@gmail.com"
-  - repo init --depth=1 -u git://github.com/PitchBlackRecoveryProject/manifest_pb.git -b android-10.0 -b android-10.0 -g default,-device,-mips,-darwin,-notdefault 
-  - repo sync -j$(nproc --all)
-  - git clone https://github.com/hraj9258/android_device_xiaomi_phoenix-pbrp -b sid device/xiaomi/phoenix
-  - rm -rf out
-  - . build/envsetup.sh && lunch omni_phoenix-eng && export ALLOW_MISSING_DEPENDENCIES=true && export LC_ALL="C" && mka recoveryimage
-  - cd work/out/target/product/phoenix
-  - curl -sL https://git.io/file-transfer | sh
-  - ./transfer wet *.zip
-  - ./transfer wet recovery.img
+  - bash build.sh
