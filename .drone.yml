@@ -8,7 +8,7 @@ platform:
   os: linux
 
 steps:
-- name: Start syncing && Compiling
+- name: Start syncing PBRP & Compiling
   image: brock5555/recovery
   commands:
   - bash build.sh
