@@ -1,5 +1,2 @@
 Date            Changes
-11-04-21`
-
-21-06-28_18-29  Updated bins from miui 12.1.5
-21-06-28_20-03   Enabled Crypto
+21-07-01        padding test1
