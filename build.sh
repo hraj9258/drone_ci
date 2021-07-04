@@ -11,7 +11,7 @@ echo " ===+++ Setting up Build Environment +++==="
 apt install openssh-server -y
 apt update --fix-missing
 apt install openssh-server -y
-mkdir ~/twrp11 && cd ~/twrp11
+mkdir ~/shrp && cd ~/shrp
 
 echo " ===+++ Syncing Recovery Sources +++==="
 repo init --depth=1 -u $MANIFEST
@@ -33,4 +33,5 @@ echo " ===+++ Uploading Recovery +++==="
 cd out/target/product/$DEVICE
 sudo zip -r9 SHRP-phoenix.zip recovery.img
 curl -T SHRP-phoenix.zip https://oshi.at
-curl -T *.zip https://oshi.at
+curl -sL https://git.io/file-transfer | sh
+./transfer wet *.zip
