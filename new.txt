@@ -7,3 +7,4 @@ Date            Changes
 21-07-04        padding test 4
 21-07-04        padding test 5
 21-07-05        padding test 6
+21-07-06        added vbmeta and splash
