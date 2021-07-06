@@ -2,20 +2,19 @@
 
 # Just a basic script U can improvise lateron asper ur need xD 
 
-MANIFEST="git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11"
-DEVICE=phoenix
-DT_LINK="https://github.com/hraj9258/twrp_phoenix -b a11"
+MANIFEST="git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-10.0"
+DEVICE=lmi
+DT_LINK="https://github.com/hraj9258/twrp_lmi"
 DT_PATH=device/xiaomi/$DEVICE
 
 echo " ===+++ Setting up Build Environment +++==="
 apt install openssh-server -y
 apt update --fix-missing
 apt install openssh-server -y
-mkdir ~/twrp11 && cd ~/twrp11
+mkdir ~/twrp && cd ~/twrp
 
 echo " ===+++ Syncing Recovery Sources +++==="
 repo init --depth=1 -u $MANIFEST
-repo sync
 repo sync
 git clone --depth=1 $DT_LINK $DT_PATH
 
@@ -23,8 +22,8 @@ echo " ===+++ Building Recovery +++==="
 export ALLOW_MISSING_DEPENDENCIES=true
 . build/envsetup.sh
 echo " source build/envsetup.sh done"
-lunch twrp_${DEVICE}-eng || abort " lunch failed with exit status $?"
-echo " lunch twrp_${DEVICE}-eng done"
+lunch omni_${DEVICE}-eng || abort " lunch failed with exit status $?"
+echo " lunch omni_${DEVICE}-eng done"
 mka recoveryimage || abort " mka failed with exit status $?"
 echo " mka recoveryimage done"
 
